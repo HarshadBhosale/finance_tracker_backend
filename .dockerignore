@@ -1,0 +1,14 @@
+.git
+.gitignore
+__pycache__
+.dockerignore
+
+# need to check
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+
+# specially look this
+env.py
