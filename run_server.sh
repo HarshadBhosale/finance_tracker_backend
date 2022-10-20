@@ -1,0 +1,1 @@
+uvicorn main:finance_tracker_api --reload
