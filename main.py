@@ -5,16 +5,14 @@ from pydantic import BaseModel
 
 finance_tracker_api = FastAPI()
 
-class Expense(BaseModel):
-    id:uuid.UUID
+class ExpenseModel(BaseModel):
     Category: str
     Description: str = None
     Amount: int
     Currency: str = "Rs"
     Date: datetime.datetime
 
-class Income(BaseModel):
-    id:uuid.UUID
+class IncomeModel(BaseModel):
     Category: str
     Description: str = None
     Amount: int
@@ -31,7 +29,7 @@ def getAllExpenses():
     return {"All expenses": ["1", "2"]}
 
 @finance_tracker_api.post("/expenses/create")
-def createExpense(expense: Expense):
+def createExpense(expense: ExpenseModel):
     return {"Expense ": "created"}
 
 @finance_tracker_api.get("/expenses/get/{id}")
@@ -52,7 +50,7 @@ def getAllIncomes():
     return {"All incomes": ["1", "2"]}
 
 @finance_tracker_api.post("/incomes/create")
-def createIncome():
+def createIncome(expense: IncomeModel):
     return {"Income ": "created"}
 
 @finance_tracker_api.get("/incomes/get/{id}")
