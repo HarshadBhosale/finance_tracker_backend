@@ -1,44 +1,31 @@
-from peewee import PostgresqlDatabase, Model, CharField, DateField, UUIDField, SmallIntegerField, BigIntegerField, FloatField
-from env import DATABASE_NAME, DATABASE_USER_NAME, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT
+import datetime
+import uuid
+import peewee
+import env
 
-db = PostgresqlDatabase(DATABASE_NAME, user = DATABASE_USER_NAME, password = DATABASE_PASSWORD, host = DATABASE_HOST, port = DATABASE_PORT)
+db = peewee.PostgresqlDatabase(env.DATABASE_NAME, user = env.DATABASE_USER_NAME, password = env.DATABASE_PASSWORD, host = env.DATABASE_HOST, port = env.DATABASE_PORT)
 
-class User(Model):
-    id = UUIDField()
-    name = CharField()
-    email = CharField()
-    country_code = SmallIntegerField()
-    mobile_number = BigIntegerField()
-    hashed_password = CharField()
-
+class BaseModel(peewee.Model):
     class Meta:
         database = db
-        db_table = 'users'
 
-class Expense(Model):
-    id = UUIDField()
-    category = CharField()
-    description = CharField()
-    amount = FloatField()
-    currency = CharField()
-    date = DateField()
-    created_at = DateField()
-    updated_at = DateField()
+class Users(BaseModel):
+    id = peewee.UUIDField(unique=True, default=uuid.uuid4())
+    name = peewee.CharField()
+    email = peewee.CharField(unique=True)
+    country_code = peewee.SmallIntegerField(null=True, default=91)
+    mobile_number = peewee.BigIntegerField(unique=True, null=True)
+    password_hash = peewee.CharField()
+    created_at = peewee.DateField(default=datetime.datetime.now())
+    updated_at = peewee.DateField(default=datetime.datetime.now())
 
-    class Meta:
-        database = db
-        db_table = 'expenses'
-
-class Income(Model):
-    id = UUIDField()
-    category = CharField()
-    description = CharField()
-    amount = FloatField()
-    currency = CharField()
-    date = DateField()
-    created_at = DateField()
-    updated_at = DateField()
-
-    class Meta:
-        database = db
-        db_table = 'incomes'
+class Transactions(BaseModel):
+    id = peewee.UUIDField(unique=True, default=uuid.uuid4())
+    event = peewee.SmallIntegerField()
+    category = peewee.CharField()
+    description = peewee.CharField(null=True)
+    amount = peewee.FloatField()
+    currency = peewee.CharField()
+    date = peewee.DateField(default=datetime.datetime.now())
+    created_at = peewee.DateField(default=datetime.datetime.now())
+    updated_at = peewee.DateField(default=datetime.datetime.now())

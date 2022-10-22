@@ -1,66 +1,83 @@
 import datetime
 import uuid
-from fastapi import FastAPI
-from pydantic import BaseModel
+import fastapi
+import pydantic
+import database
+import create_tables
 
-finance_tracker_api = FastAPI()
+finance_tracker_api = fastapi.FastAPI()
 
-class ExpenseModel(BaseModel):
+class UserModel(pydantic.BaseModel):
+    name: str
+    email: str
+    country_code: int
+    mobile_number: int
+    password_hash: str
+
+class TransactionModel(pydantic.BaseModel):
+    Event: int
     Category: str
     Description: str = None
     Amount: int
-    Currency: str = "Rs"
+    Currency: str
     Date: datetime.datetime
 
-class IncomeModel(BaseModel):
-    Category: str
-    Description: str = None
-    Amount: int
-    Currency: str = "Rs"
-    Date: datetime.datetime 
+
+
+@finance_tracker_api.on_event("startup")
+def startup_event():
+    if database.db.is_closed():
+        database.db.connect()
+
+@finance_tracker_api.on_event("shutdown")
+def shutdown_event():
+    if not database.db.is_closed():
+        database.db.close()
 
 @finance_tracker_api.get("/")
 def root():
-    return {"Finance Tracker API": "0.0.1"}
+    return {"Finance Tracker API": "0.1.0"}
 
-# expense
-@finance_tracker_api.get("/expenses")
-def getAllExpenses():
-    return {"All expenses": ["1", "2"]}
 
-@finance_tracker_api.post("/expenses/create")
-def createExpense(expense: ExpenseModel):
-    return {"Expense ": "created"}
 
-@finance_tracker_api.get("/expenses/get/{id}")
-def getExpense(id: uuid.UUID):
-    return {f"Expense No. {id}": "readed"}
+@finance_tracker_api.get("/users")
+def getAllUsers():
+    return {"All users": ["1", "2"]}
 
-@finance_tracker_api.post("/expenses/update/{id}")
-def updateExpense(id: uuid.UUID):
-    return {"Expense ": "updated"}
+@finance_tracker_api.post("/users/create")
+def createUser(user: UserModel):
+    return {"User ": "created"}
 
-@finance_tracker_api.post("/expenses/delete/{id}")
-def deleteExpense(id: uuid.UUID):
-    return {"Expense ": "deleted"}
+@finance_tracker_api.get("/users/get/{id}")
+def getUser(id: uuid.UUID):
+    return {f"User No. {id}": "readed"}
 
-# income
-@finance_tracker_api.get("/incomes")
-def getAllIncomes():
-    return {"All incomes": ["1", "2"]}
+@finance_tracker_api.post("/users/update/{id}")
+def updateUser(id: uuid.UUID):
+    return {"User ": "updated"}
 
-@finance_tracker_api.post("/incomes/create")
-def createIncome(expense: IncomeModel):
-    return {"Income ": "created"}
+@finance_tracker_api.post("/users/delete/{id}")
+def deleteUser(id: uuid.UUID):
+    return {"User ": "deleted"}
 
-@finance_tracker_api.get("/incomes/get/{id}")
-def getIncome(id: uuid.UUID):
-    return {f"Income No. {id}": "readed"}
 
-@finance_tracker_api.post("/incomes/update/{id}")
-def updateIncome(id: uuid.UUID):
-    return {"Income ": "updated"}
 
-@finance_tracker_api.post("/incomes/delete/{id}")
-def deleteIncome(id: uuid.UUID):
-    return {"Income ": "deleted"}
+@finance_tracker_api.get("/transactions")
+def getAllTransactions():
+    return {"All transactions": ["1", "2"]}
+
+@finance_tracker_api.post("/transactions/create")
+def createTransaction(transaction: TransactionModel):
+    return {"Transaction ": "created"}
+
+@finance_tracker_api.get("/transactions/get/{id}")
+def getTransaction(id: uuid.UUID):
+    return {f"Transaction No. {id}": "readed"}
+
+@finance_tracker_api.post("/transactions/update/{id}")
+def updateTransaction(id: uuid.UUID):
+    return {"Transaction ": "updated"}
+
+@finance_tracker_api.post("/transactions/delete/{id}")
+def deleteTransaction(id: uuid.UUID):
+    return {"Transaction ": "deleted"}
