@@ -1,4 +1,6 @@
-from database import Users, Transactions
+from database import db, BaseModel
 
-for table in [Users, Transactions]:
-    table.create_table()
+def create_not_existence_tables():
+    for table in BaseModel.__subclasses__():
+        if not db.table_exists(table.__name__):
+            table.create_table()
