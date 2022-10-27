@@ -74,7 +74,7 @@ def createUser(user: UserModel):
         "id" : user_object["id"]
     }
 
-@finance_tracker_api.get("/users/get")
+@finance_tracker_api.post("/users/get")
 def getUser(get_object: dict):
     id = get_object.pop("user_id")
     user = database.Users.select().where(database.Users.id==id).get()
@@ -105,7 +105,7 @@ def deleteUser(delete_object: dict):
 
 
 
-@finance_tracker_api.get("/transactions")
+@finance_tracker_api.post("/transactions")
 def getAllTransactions(get_all_object: dict):
     id = get_all_object.pop("user_id")
     transactions = database.Transactions.select().where(database.Transactions.user_id==id)
@@ -143,7 +143,7 @@ def createTransaction(transaction: TransactionModel):
         "id" : transaction_object["id"]
     }
 
-@finance_tracker_api.get("/transactions/get")
+@finance_tracker_api.post("/transactions/get")
 def getTransaction(get_object: dict):
     id = get_object.pop("transaction_id")
     transaction = database.Transactions.select().where(database.Transactions.id==id).get()
