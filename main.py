@@ -6,9 +6,20 @@ import pydantic
 import database
 import create_tables
 import HASH
+from fastapi.middleware.cors import CORSMiddleware
 
 finance_tracker_api = fastapi.FastAPI()
 create_tables.create_not_existence_tables()
+
+origins = [
+    "http://localhost:3000/",
+]
+
+finance_tracker_api.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+)
 
 class UserModel(pydantic.BaseModel):
     name: str
