@@ -1,6 +1,9 @@
 import fastapi
 from Database.Interactions.Users.delete_user_profile import deleteUserProfile
 from Database.Interactions.Users.get_user_profile import getUserProfile
+from Database.Interactions.Users.login_user_profile import loginUserProfile
+from Database.Interactions.Users.get_user_stats import getUserStats
+from Database.Interactions.Users.get_user_visual_stats import getUserVisualStats
 from Database.Interactions.Users.register_user import registerUser
 from Database.Interactions.Users.update_user_profile import updateUserProfile
 from Database.Interactions.Users.update_user_profile_password import updateUserProfilePassword
@@ -49,21 +52,33 @@ def root():
 def createUser(user: UserModel):
     return registerUser(user)
 
+@finance_tracker_api.post("/users/login")
+def loginUser(login_object: dict):
+    return loginUserProfile(login_object)
+
 @finance_tracker_api.post("/users/get")
 def getUser(get_object: dict):
     return getUserProfile(get_object)
 
+@finance_tracker_api.post("/users/get/stats")
+def getStats(get_user_stats_object: dict):
+    return getUserStats(get_user_stats_object)
+
+@finance_tracker_api.post("/users/get/stats/visual")
+def getVisualStats(get_user_visual_stats_object: dict):
+    return getUserVisualStats(get_user_visual_stats_object)
+
 @finance_tracker_api.post("/users/update")
-def updateUser(update_object: dict):
-    return updateUserProfile(update_object)
+def updateUser(update_user_object: dict):
+    return updateUserProfile(update_user_object)
 
 @finance_tracker_api.post("/users/update/password")
-def updateUserPassword(update_object: dict):
-    return updateUserProfilePassword(update_object)
+def updateUserPassword(update_user_password_object: dict):
+    return updateUserProfilePassword(update_user_password_object)
 
 @finance_tracker_api.post("/users/delete")
-def deleteUser(delete_object: dict):
-    return deleteUserProfile(delete_object)
+def deleteUser(delete_user_object: dict):
+    return deleteUserProfile(delete_user_object)
 
 
 @finance_tracker_api.post("/transactions")
