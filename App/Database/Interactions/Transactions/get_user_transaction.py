@@ -1,7 +1,7 @@
 from Database.Models.transactions import Transactions
 
-def getUserTransaction(user_transaction_object):
-    id = user_transaction_object["transaction_id"]
+def getUserTransaction(get_transaction_object):
+    id = get_transaction_object["transaction_id"]
     transaction = Transactions.select().where(Transactions.id==id).get()
     transaction_object = {
         "id" : transaction.id,

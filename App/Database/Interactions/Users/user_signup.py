@@ -3,7 +3,7 @@ from uuid import uuid4
 from HASH import HASH
 from Database.Models.users import Users
 
-def registerUser(user):
+def userSignUp(user):
     user_object = {
         "id" : uuid4(),
         "name" : user.name,

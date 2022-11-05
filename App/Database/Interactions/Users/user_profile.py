@@ -1,7 +1,7 @@
 from Database.Models.users import Users
 
-def getUserProfile(get_object):
-    id = get_object["user_id"]
+def userProfile(profile_object):
+    id = profile_object["user_id"]
     user = Users.select().where(Users.id==id).get()
     user_object = {
         "id": user.id,

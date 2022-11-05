@@ -2,16 +2,16 @@ from Database.Models.transactions import Transactions
 from uuid import uuid4
 from datetime import datetime
 
-def createUserTransaction(user_transaction_object):
+def createUserTransaction(transaction):
     transaction_object = {
         "id" : uuid4(),
-        "user_id" : user_transaction_object.user_id,
-        "event" : user_transaction_object.event,
-        "category" : user_transaction_object.category,
-        "description" : user_transaction_object.description,
-        "amount" : user_transaction_object.amount,
-        "currency" : user_transaction_object.currency,
-        "date" : user_transaction_object.date if user_transaction_object.date else datetime.now(),
+        "user_id" : transaction.user_id,
+        "event" : transaction.event,
+        "category" : transaction.category,
+        "description" : transaction.description,
+        "amount" : transaction.amount,
+        "currency" : transaction.currency,
+        "date" : transaction.date if transaction.date else datetime.now(),
         "status": 1,
         "created_at" : datetime.now(),
         "updated_at" : datetime.now()

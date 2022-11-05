@@ -1,17 +1,17 @@
 import fastapi
-from Database.Interactions.Users.delete_user_profile import deleteUserProfile
-from Database.Interactions.Users.get_user_profile import getUserProfile
-from Database.Interactions.Users.login_user_profile import loginUserProfile
-from Database.Interactions.Users.get_user_stats import getUserStats
-from Database.Interactions.Users.get_user_visual_stats import getUserVisualStats
-from Database.Interactions.Users.register_user import registerUser
+from Database.Interactions.Users.disable_user_profile import disableUserProfile
+from Database.Interactions.Users.user_profile import userProfile
+from Database.Interactions.Users.user_signin import userSignIn
+from Database.Interactions.Users.user_stats import userStats
+from Database.Interactions.Users.user_graphics import userGraphics
+from Database.Interactions.Users.user_signup import userSignUp
 from Database.Interactions.Users.update_user_profile import updateUserProfile
-from Database.Interactions.Users.update_user_profile_password import updateUserProfilePassword
-from Database.Interactions.Transactions.get_user_all_transactions import getUserAllTransactions
+from Database.Interactions.Users.update_user_password import updateUserPassword
+from Database.Interactions.Transactions.get_user_transactions import getUserTransactions
 from Database.Interactions.Transactions.create_user_transaction import createUserTransaction
 from Database.Interactions.Transactions.get_user_transaction import getUserTransaction
 from Database.Interactions.Transactions.update_user_transaction import updateUserTransaction
-from Database.Interactions.Transactions.delete_user_transaction import deleteUserTransaction
+from Database.Interactions.Transactions.disable_user_transaction import disableUserTransaction
 from Database.Models.users import UserModel
 from Database.Models.transactions import TransactionModel
 from Database.database import database
@@ -43,60 +43,60 @@ def shutdown_event():
 
 @finance_tracker_api.get("/")
 def root():
-    version = "1.1.0"
+    version = "1.2.0"
     return {"Finance Tracker API" : version}
 
 
 
-@finance_tracker_api.post("/users/create")
-def createUser(user: UserModel):
-    return registerUser(user)
+@finance_tracker_api.post("/signup")
+def signUp(user: UserModel):
+    return userSignUp(user)
 
-@finance_tracker_api.post("/users/login")
-def loginUser(login_object: dict):
-    return loginUserProfile(login_object)
+@finance_tracker_api.post("/signin")
+def signIn(signin_object: dict):
+    return userSignIn(signin_object)
 
-@finance_tracker_api.post("/users/get")
-def getUser(get_object: dict):
-    return getUserProfile(get_object)
+@finance_tracker_api.post("/profile")
+def profile(profile_object: dict):
+    return userProfile(profile_object)
 
-@finance_tracker_api.post("/users/get/stats")
-def getStats(get_user_stats_object: dict):
-    return getUserStats(get_user_stats_object)
+@finance_tracker_api.post("/stats")
+def stats(stats_object: dict):
+    return userStats(stats_object)
 
-@finance_tracker_api.post("/users/get/stats/visual")
-def getVisualStats(get_user_visual_stats_object: dict):
-    return getUserVisualStats(get_user_visual_stats_object)
+@finance_tracker_api.post("/graphics")
+def graphics(graphics_object: dict):
+    return userGraphics(graphics_object)
 
-@finance_tracker_api.post("/users/update")
-def updateUser(update_user_object: dict):
-    return updateUserProfile(update_user_object)
+@finance_tracker_api.post("/update/profile")
+def updateProfile(update_profile_object: dict):
+    return updateUserProfile(update_profile_object)
 
-@finance_tracker_api.post("/users/update/password")
-def updateUserPassword(update_user_password_object: dict):
-    return updateUserProfilePassword(update_user_password_object)
+@finance_tracker_api.post("/update/password")
+def updatePassword(update_password_object: dict):
+    return updateUserPassword(update_password_object)
 
-@finance_tracker_api.post("/users/delete")
-def deleteUser(delete_user_object: dict):
-    return deleteUserProfile(delete_user_object)
+@finance_tracker_api.post("/disable/profile")
+def disableProfile(disable_profile_object: dict):
+    return disableUserProfile(disable_profile_object)
 
 
 @finance_tracker_api.post("/transactions")
-def getAllTransactions(get_all_transactions_object: dict):
-    return getUserAllTransactions(get_all_transactions_object)
+def getTransactions(get_transactions_object: dict):
+    return getUserTransactions(get_transactions_object)
 
-@finance_tracker_api.post("/transactions/create")
-def createTransaction(create_transaction_object: TransactionModel):
-    return createUserTransaction(create_transaction_object)
+@finance_tracker_api.post("/create/transaction")
+def createTransaction(transaction: TransactionModel):
+    return createUserTransaction(transaction)
 
-@finance_tracker_api.post("/transactions/get")
+@finance_tracker_api.post("/get/transaction")
 def getTransaction(get_transaction_object: dict):
     return getUserTransaction(get_transaction_object)
 
-@finance_tracker_api.post("/transactions/update")
+@finance_tracker_api.post("/update/transaction")
 def updateTransaction(update_transaction_object: dict):
     return updateUserTransaction(update_transaction_object)
 
-@finance_tracker_api.post("/transactions/delete")
-def deleteTransaction(delete_transaction_object: dict):
-    return deleteUserTransaction(delete_transaction_object)
+@finance_tracker_api.post("/disable/transaction")
+def disableTransaction(disable_transaction_object: dict):
+    return disableUserTransaction(disable_transaction_object)
