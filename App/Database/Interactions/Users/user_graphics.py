@@ -1,6 +1,6 @@
 from Database.Interactions.Users.user_stats import userStats
-from Database.Models.transactions import Transactions
 from peewee import fn
+from Database.Interactions.Transactions.get_user_transaction_years import getUserTransactionYears
 
 def userGraphics(graphics_object):
     if "user_id" not in graphics_object:
@@ -11,10 +11,16 @@ def userGraphics(graphics_object):
     stats_object = {
         "user_id" : user_id,
     }
+
+    transactionYears_object = {
+        "user_id" : user_id,
+    }
+    transactionYears = getUserTransactionYears(transactionYears_object)
+
     visual_stats = {}
     
-    for transaction in Transactions.select(fn.date_part('year', Transactions.date).alias('Year')).where(Transactions.user_id == user_id, Transactions.status==1).distinct():
-        stats_object["year"] = transaction.Year
-        visual_stats[int(transaction.Year)] = userStats(stats_object)
+    for year in transactionYears["transactionYears"]:
+        stats_object["year"] = year
+        visual_stats[year] = userStats(stats_object)
     
     return visual_stats

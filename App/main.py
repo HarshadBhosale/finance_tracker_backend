@@ -10,6 +10,7 @@ from Database.Interactions.Users.update_user_password import updateUserPassword
 from Database.Interactions.Transactions.get_user_transactions import getUserTransactions
 from Database.Interactions.Transactions.create_user_transaction import createUserTransaction
 from Database.Interactions.Transactions.get_user_transaction import getUserTransaction
+from Database.Interactions.Transactions.get_user_transaction_years import getUserTransactionYears
 from Database.Interactions.Transactions.update_user_transaction import updateUserTransaction
 from Database.Interactions.Transactions.disable_user_transaction import disableUserTransaction
 from Database.Models.users import UserModel
@@ -92,6 +93,10 @@ def createTransaction(transaction: TransactionModel):
 @finance_tracker_api.post("/get/transaction")
 def getTransaction(get_transaction_object: dict):
     return getUserTransaction(get_transaction_object)
+
+@finance_tracker_api.post("/get/transaction/years")
+def getTransactionYears(get_transaction_years_object: dict):
+    return getUserTransactionYears(get_transaction_years_object)
 
 @finance_tracker_api.post("/update/transaction")
 def updateTransaction(update_transaction_object: dict):
