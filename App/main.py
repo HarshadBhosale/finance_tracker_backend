@@ -13,6 +13,8 @@ from Database.Interactions.Transactions.get_user_transaction import getUserTrans
 from Database.Interactions.Transactions.get_user_transaction_years import getUserTransactionYears
 from Database.Interactions.Transactions.update_user_transaction import updateUserTransaction
 from Database.Interactions.Transactions.disable_user_transaction import disableUserTransaction
+from Database.Helpers.get_category_expense import getCategoryExpense
+from Database.Helpers.get_category_income import getCategoryIncome
 from Database.Models.users import UserModel
 from Database.Models.transactions import TransactionModel
 from Database.database import database
@@ -105,3 +107,13 @@ def updateTransaction(update_transaction_object: dict):
 @finance_tracker_api.post("/disable/transaction")
 def disableTransaction(disable_transaction_object: dict):
     return disableUserTransaction(disable_transaction_object)
+
+
+
+@finance_tracker_api.get("/category/expense")
+def categoryExpense():
+    return getCategoryExpense()
+
+@finance_tracker_api.get("/category/income")
+def categoryIncome():
+    return getCategoryIncome()
