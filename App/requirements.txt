@@ -4,3 +4,4 @@ pydantic==1.10.2
 peewee==3.15.3
 psycopg2-binary==2.9.4
 uvicorn[standard]==0.19.0
+black==22.10.0
