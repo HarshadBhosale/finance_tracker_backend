@@ -20,6 +20,7 @@ from Database.Models.transactions import TransactionModel
 from Database.database import database
 from fastapi.middleware.cors import CORSMiddleware
 from Database.Migrations.create_tables import create_not_existence_tables
+from Utils.logger import logger
 
 finance_tracker_api = fastapi.FastAPI()
 
@@ -53,67 +54,67 @@ def root():
 
 @finance_tracker_api.post("/signup")
 def signUp(user: UserModel):
-    return userSignUp(user)
+    return logger(userSignUp, user)
 
 @finance_tracker_api.post("/signin")
 def signIn(signin_object: dict):
-    return userSignIn(signin_object)
+    return logger(userSignIn, signin_object)
 
 @finance_tracker_api.post("/profile")
 def profile(profile_object: dict):
-    return userProfile(profile_object)
+    return logger(userProfile, profile_object)
 
 @finance_tracker_api.post("/stats")
 def stats(stats_object: dict):
-    return userStats(stats_object)
+    return logger(userStats, stats_object)
 
 @finance_tracker_api.post("/graphics")
 def graphics(graphics_object: dict):
-    return userGraphics(graphics_object)
+    return logger(userGraphics, graphics_object)
 
 @finance_tracker_api.post("/update/profile")
 def updateProfile(update_profile_object: dict):
-    return updateUserProfile(update_profile_object)
+    return logger(updateUserProfile, update_profile_object)
 
 @finance_tracker_api.post("/update/password")
 def updatePassword(update_password_object: dict):
-    return updateUserPassword(update_password_object)
+    return logger(updateUserPassword, update_password_object)
 
 @finance_tracker_api.post("/disable/profile")
 def disableProfile(disable_profile_object: dict):
-    return disableUserProfile(disable_profile_object)
+    return logger(disableUserProfile, disable_profile_object)
 
 
 @finance_tracker_api.post("/transactions")
 def getTransactions(get_transactions_object: dict):
-    return getUserTransactions(get_transactions_object)
+    return logger(getUserTransactions, get_transactions_object)
 
 @finance_tracker_api.post("/create/transaction")
 def createTransaction(transaction: TransactionModel):
-    return createUserTransaction(transaction)
+    return logger(createUserTransaction, transaction)
 
 @finance_tracker_api.post("/get/transaction")
 def getTransaction(get_transaction_object: dict):
-    return getUserTransaction(get_transaction_object)
+    return logger(getUserTransaction, get_transaction_object)
 
 @finance_tracker_api.post("/get/transaction/years")
 def getTransactionYears(get_transaction_years_object: dict):
-    return getUserTransactionYears(get_transaction_years_object)
+    return logger(getUserTransactionYears, get_transaction_years_object)
 
 @finance_tracker_api.post("/update/transaction")
 def updateTransaction(update_transaction_object: dict):
-    return updateUserTransaction(update_transaction_object)
+    return logger(updateUserTransaction, update_transaction_object)
 
 @finance_tracker_api.post("/disable/transaction")
 def disableTransaction(disable_transaction_object: dict):
-    return disableUserTransaction(disable_transaction_object)
+    return logger(disableUserTransaction, disable_transaction_object)
 
 
 
 @finance_tracker_api.get("/category/expense")
 def categoryExpense():
-    return getCategoryExpense()
+    return logger(getCategoryExpense)
 
 @finance_tracker_api.get("/category/income")
 def categoryIncome():
-    return getCategoryIncome()
+    return logger(getCategoryIncome)
