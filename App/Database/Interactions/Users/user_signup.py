@@ -1,6 +1,6 @@
 from datetime import datetime
 from uuid import uuid4
-from HASH import HASH
+from Utils.HASH import HASH
 from Database.Models.users import Users
 
 def userSignUp(user):

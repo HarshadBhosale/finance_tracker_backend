@@ -1,4 +1,4 @@
-from HASH import HASH
+from Utils.HASH import HASH
 from Database.Models.users import Users
 
 def userSignIn(signin_object):

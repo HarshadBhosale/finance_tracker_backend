@@ -1,5 +1,5 @@
 from peewee import PostgresqlDatabase
-import env
+from Helper import env
 
 database = PostgresqlDatabase(
     env.DATABASE_NAME,

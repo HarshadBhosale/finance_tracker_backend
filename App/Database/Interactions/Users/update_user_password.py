@@ -1,5 +1,5 @@
 from Database.Models.users import Users
-from HASH import HASH
+from Utils.HASH import HASH
 
 def updateUserPassword(update_password_object):
     if "user_id" not in update_password_object:
