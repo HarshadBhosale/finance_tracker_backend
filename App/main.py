@@ -15,6 +15,7 @@ from Database.Interactions.Transactions.update_user_transaction import updateUse
 from Database.Interactions.Transactions.disable_user_transaction import disableUserTransaction
 from Database.Helpers.get_category_expense import getCategoryExpense
 from Database.Helpers.get_category_income import getCategoryIncome
+from Database.Helpers.get_currencies import getCurrencies
 from Database.Models.users import UserModel
 from Database.Models.transactions import TransactionModel
 from Database.database import database
@@ -118,3 +119,7 @@ def categoryExpense():
 @finance_tracker_api.get("/category/income")
 def categoryIncome():
     return logger(getCategoryIncome)
+
+@finance_tracker_api.get("/currencies")
+def currencies():
+    return logger(getCurrencies)
