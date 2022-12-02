@@ -13,8 +13,8 @@ class Users(Database.Models.base_model.BaseModel):
     password = peewee.CharField()
     user_session = playhouse.postgres_ext.BinaryJSONField()
     status = peewee.SmallIntegerField()
-    created_at = peewee.DateField()
-    updated_at = peewee.DateField()
+    created_at = peewee.DateTimeField()
+    updated_at = peewee.DateTimeField()
 
 class UserModel(pydantic.BaseModel):
     name: str

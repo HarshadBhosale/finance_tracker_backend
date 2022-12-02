@@ -13,10 +13,10 @@ class Transactions(Database.Models.base_model.BaseModel):
     description = peewee.CharField(null=True)
     amount = peewee.FloatField()
     currency = peewee.CharField()
-    date = peewee.DateField()
+    date = peewee.DateTimeField()
     status = peewee.SmallIntegerField()
-    created_at = peewee.DateField()
-    updated_at = peewee.DateField()
+    created_at = peewee.DateTimeField()
+    updated_at = peewee.DateTimeField()
 
 class TransactionModel(pydantic.BaseModel):
     user_id : uuid.UUID
