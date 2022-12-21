@@ -1,0 +1,11 @@
+run migration for adding column to user table created_at and updated_at
+
+get request should use get and send data through headers
+
+
+remove unused imports
+
+
+
+
+rm -rf `find . -type d -name __pycache__`

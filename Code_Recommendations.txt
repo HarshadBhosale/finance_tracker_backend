@@ -1,0 +1,6 @@
+String should use "" only.
+No f"{}" to use, instead use format
+No comments in production code {Development code - comments - Something_else}
+
+Call HASH.HASH from frontend and send response to backend to get response
+Axios cant send json in GET so changed to POST

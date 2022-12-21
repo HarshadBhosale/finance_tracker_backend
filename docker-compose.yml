@@ -1,0 +1,28 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=cogoport
+    ports:
+      - '6432:6432'
+    volumes: 
+      - postgres:/var/lib/postgresql/data
+  
+  finance_tracker:
+    image: python:3.9-alpine
+    restart: always
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./App :/App
+    # command: pip3 install --no-cache-dir --upgrade -r requirements.txt
+    depends_on:
+      - postgres
+
+volumes:
+  postgres:
+    driver: local
