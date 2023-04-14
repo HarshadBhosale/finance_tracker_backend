@@ -11,4 +11,4 @@ def getCategoryExpense():
         "Subscription",
         "Other",
     ]
-    return { "expenseCategory" : expenseCategory }
+    return {"expenseCategory": expenseCategory}

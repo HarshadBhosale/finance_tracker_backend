@@ -4,6 +4,7 @@ import pydantic
 import typing
 import playhouse.postgres_ext
 
+
 class Users(Database.Models.base_model.BaseModel):
     id = peewee.UUIDField(unique=True)
     name = peewee.CharField()
@@ -15,6 +16,7 @@ class Users(Database.Models.base_model.BaseModel):
     status = peewee.SmallIntegerField()
     created_at = peewee.DateTimeField()
     updated_at = peewee.DateTimeField()
+
 
 class UserModel(pydantic.BaseModel):
     name: str

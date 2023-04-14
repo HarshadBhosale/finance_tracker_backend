@@ -1,8 +1,9 @@
 from Database.Models.users import Users
 
+
 def userProfile(profile_object):
     id = profile_object["user_id"]
-    users = Users.select().where(Users.id==id, Users.status==1).execute()
+    users = Users.select().where(Users.id == id, Users.status == 1).execute()
     for user in users:
         user_object = {
             "id": user.id,
@@ -10,8 +11,8 @@ def userProfile(profile_object):
             "email": user.email,
             "country_code": user.country_code,
             "mobile_number": user.mobile_number,
-            "user_session" : user.user_session,
-            "status": user.status
+            "user_session": user.user_session,
+            "status": user.status,
         }
         return user_object
-    return {"message" : "No user found"}
+    return {"message": "No user found"}
