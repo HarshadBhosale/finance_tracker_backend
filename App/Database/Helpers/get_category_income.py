@@ -4,4 +4,4 @@ def getCategoryIncome():
         "Business",
         "Investments",
     ]
-    return { "expenseCategory" : incomeCategory }
+    return {"expenseCategory": incomeCategory}

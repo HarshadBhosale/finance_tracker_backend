@@ -1,6 +1,3 @@
 def getCurrencies():
-    currencies = [
-        "INR",
-        "USD"
-    ]
-    return { "currencies" : currencies }
+    currencies = ["INR", "USD"]
+    return {"currencies": currencies}
