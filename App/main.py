@@ -5,6 +5,10 @@ from Database.database import database
 from Database.Helpers.get_category_expense import getCategoryExpense
 from Database.Helpers.get_category_income import getCategoryIncome
 from Database.Helpers.get_currencies import getCurrencies
+from Database.Interactions.Companies.get_company_profile import get_company_profile
+from Database.Interactions.Companies.update_current_stock_price import (
+    update_current_stock_price,
+)
 from Database.Interactions.Transactions.create_user_transaction import (
     createUserTransaction,
 )
@@ -168,6 +172,16 @@ def categoryIncome():
 @finance_tracker_api.get("/currencies")
 def currencies():
     return logger(getCurrencies)
+
+
+@finance_tracker_api.get("/update-stock-prices")
+def current_stock_price():
+    return logger(update_current_stock_price)
+
+
+@finance_tracker_api.get("/get-company-profile")
+def company_profile():
+    return logger(get_company_profile)
 
 
 @finance_tracker_api.post("/file-upload")
