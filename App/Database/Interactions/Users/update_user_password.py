@@ -12,12 +12,11 @@ def updateUserPassword(update_password_object):
     user_id = update_password_object.pop("user_id")
 
     update_password_object["password"] = HASH(update_password_object["password"])
-    is_updated = (
+    if is_updated := (
         Users.update(**update_password_object)
         .where(Users.id == user_id, Users.status == 1)
         .execute()
-    )
-    if is_updated:
+    ):
         return {"message": "Account password updated"}
 
     return {"message": "Account password couldn't be updated"}

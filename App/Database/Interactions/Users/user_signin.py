@@ -5,14 +5,12 @@ from Database.Models.users import Users
 def userSignIn(signin_object):
     user_email = signin_object["email"]
 
-    email_in_db = Users.select().where(Users.email == user_email).count()
-    if email_in_db == 0:
+    if (email_in_db := Users.select().where(Users.email == user_email).count()) == 0:
         return {"message": "No account linked to email"}
 
-    active_email_in_db = (
+    if (active_email_in_db := (
         Users.select().where(Users.email == user_email, Users.status == 1).count()
-    )
-    if active_email_in_db == 0:
+    )) == 0:
         return {"message": "Your Account has been disabled"}
 
     user_password = HASH(signin_object["password"])
