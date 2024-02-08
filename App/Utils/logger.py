@@ -1,4 +1,5 @@
-def logger(func, params={}):
+def logger(func, params=None):
+    params = {} if params is None else params
     try:
         if params:
             return func(params)
