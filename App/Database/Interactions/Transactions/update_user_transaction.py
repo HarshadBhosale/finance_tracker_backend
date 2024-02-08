@@ -15,12 +15,11 @@ def updateUserTransaction(update_transaction_object):
     if transaction_object == {}:
         return {"message": "Nothing to update"}
 
-    is_updated = (
+    if is_updated := (
         Transactions.update(**transaction_object)
         .where(Transactions.id == transaction_id, Transactions.status == 1)
         .execute()
-    )
-    if is_updated:
+    ):
         return {"message": "Transaction updated"}
 
     return {"message": "Transaction couldn't updated"}

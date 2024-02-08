@@ -7,10 +7,9 @@ def disableUserProfile(disable_profile_object):
 
     user_id = disable_profile_object["user_id"]
 
-    is_deleted = (
+    if is_deleted := (
         Users.update(status=0).where(Users.id == user_id, Users.status == 1).execute()
-    )
-    if is_deleted:
+    ):
         return {"message": "Your account was disabled"}
 
     return {"message": "Account couldn't be disabled"}

@@ -6,8 +6,7 @@ from Database.Models.users import Users
 
 def userSignUp(user):
     user_email = user.email
-    email_in_db = Users.select().where(Users.email == user_email).count()
-    if email_in_db != 0:
+    if (email_in_db := Users.select().where(Users.email == user_email).count()) != 0:
         return {"message": "Account with email already exists"}
 
     user_object = {

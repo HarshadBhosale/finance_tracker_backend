@@ -15,12 +15,11 @@ def updateUserProfile(update_profile_object):
     if profile_object == {}:
         return {"message": "Nothing to update"}
 
-    is_updated = (
+    if is_updated := (
         Users.update(**profile_object)
         .where(Users.id == user_id, Users.status == 1)
         .execute()
-    )
-    if is_updated:
+    ):
         return {"message": "Profile updated"}
 
     return {"message": "Profile not updated"}
